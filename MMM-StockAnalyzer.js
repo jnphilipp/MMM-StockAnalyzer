@@ -68,8 +68,25 @@ Module.register("MMM-StockAnalyzer", {
         row.appendChild(changeCell);
 
         var positionCell = document.createElement("td");
-        positionCell.innerHTML = position.return[0].toFixed(3) + position.currency + " (" + position.win_loss[0].toFixed(3) + position.currency + "/" + position.win_loss[1].toFixed(3) + position.currency + ")";
-        positionCell.className = "align-right " + (position.win_loss > 0 ? "green" : "red");
+        positionCell.className = "align-right";
+
+        var span = document.createElement("span");
+        span.innerHTML = position.return[0].toFixed(3) + position.currency;
+        span.className = (position.win_loss[0] > 0 ? "green" : "red");
+        positionCell.appendChild(span);
+
+        positionCell.innerHTML += " (";
+        var span2 = document.createElement("span");
+        span2.innerHTML = position.win_loss[0].toFixed(3) + position.currency;
+        span2.className = (position.win_loss[0] > 0 ? "green" : "red");
+        positionCell.appendChild(span2);
+
+        positionCell.innerHTML += "/";
+        var span3 = document.createElement("span");
+        span3.innerHTML = position.win_loss[1].toFixed(3) + position.currency;
+        span3.className = (position.win_loss[1] > 0 ? "green" : "red");
+        positionCell.appendChild(span3);
+        positionCell.innerHTML += ")";
         row.appendChild(positionCell);
     },
 
