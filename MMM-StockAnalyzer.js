@@ -68,9 +68,16 @@ Module.register("MMM-StockAnalyzer", {
         row.appendChild(changeCell);
 
         var positionCell = document.createElement("td");
-        positionCell.innerHTML = position.return.toFixed(3) + position.currency + " (" + position.win_loss.toFixed(3) + position.currency + ")";
+        positionCell.innerHTML = position.return[0].toFixed(3) + position.currency + " (" + position.win_loss[0].toFixed(3) + position.currency + "/" + position.win_loss[1].toFixed(3) + position.currency + ")";
         positionCell.className = "align-right " + (position.win_loss > 0 ? "green" : "red");
         row.appendChild(positionCell);
+    },
+
+    getHeader: function() {
+        if ( "performance" in this.portfolioData )
+            return this.data.header + " <span style=\"float: right;\">" + this.portfolioData["performance"]["performance"].toFixed(3) + "%</span>";
+        else
+            return this.data.header;
     },
 
     scheduleUpdate: function(delay) {
