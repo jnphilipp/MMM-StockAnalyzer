@@ -6,18 +6,15 @@ module.exports = NodeHelper.create({
         console.log(this.name + " helper method started...");
     },
 
-    portfolioRequest: function (url) {
-        var self = this;
-        request({url: url, method: "GET"}, function (error, response, body) {
-            if ( !error && response.statusCode == 200 )
-                self.sendSocketNotification("PORTFOLIO_RESULT", JSON.parse(body));
-            else
-                console.log(self.name + ": " + body);
-        });
-    },
-
-    socketNotificationReceived: function(notification, url) {
-        if ( notification === "GET_PORTFOLIO" )
-            this.portfolioRequest(url);
+    socketNotificationReceived: function(notification, payload) {
+        if ( notification === "GET_DATA" ) {
+            var self = this;
+            request({url: payload.url, method: "GET"}, function (error, response, body) {
+                if ( !error && response.statusCode == 200 )
+                    self.sendSocketNotification("REQUEST_RESULT", {id: payload.id, data: JSON.parse(body)});
+                else
+                    console.log(self.name + ": " + body);
+            });
+        }
     }
 });
