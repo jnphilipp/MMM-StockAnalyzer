@@ -35,7 +35,6 @@ Module.register("MMM-StockAnalyzer", {
             this.config.renderAs = "table";
 
         this.scheduleUpdate(this.config.initialLoadDelay);
-        this.updateTimer = null;
     },
 
     getDom: function() {
@@ -196,8 +195,7 @@ Module.register("MMM-StockAnalyzer", {
             nextLoad = delay;
 
         var self = this;
-        clearTimeout(this.updateTimer);
-        this.updateTimer = setTimeout(function() {
+        setInterval(function() {
             self.updatePortfolio();
         }, nextLoad);
     },
