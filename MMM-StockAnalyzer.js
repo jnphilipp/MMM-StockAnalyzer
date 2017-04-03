@@ -16,9 +16,7 @@ Module.register("MMM-StockAnalyzer", {
         renderAs: "table",
 
         animationSpeed: 1000,
-        updateInterval: 15 * 60 * 1000,
-        initialLoadDelay: 2500,
-        retryDelay: 2500
+        updateInterval: 15 * 60 * 1000
     },
 
     getStyles: function() {
@@ -34,7 +32,7 @@ Module.register("MMM-StockAnalyzer", {
         if ( !this.config.renderAs in ["table", "marquee"] )
             this.config.renderAs = "table";
 
-        this.scheduleUpdate(this.config.initialLoadDelay);
+        this.scheduleUpdate();
     },
 
     getDom: function() {
